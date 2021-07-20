@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include <stack>
 
 using namespace std;
 
@@ -35,6 +36,38 @@ public:
         preOrderTraversalSequence.insert(preOrderTraversalSequence.end(), leftTraversal.begin(), leftTraversal.end());
         preOrderTraversalSequence.insert(preOrderTraversalSequence.end(), rightTraversal.begin(), rightTraversal.end());
 
+        return preOrderTraversalSequence;
+    }
+
+    vector<int> preorderTraversal_stack(TreeNode *root)
+    {
+        // declare empty vector
+        vector<int> preOrderTraversalSequence = vector<int>();
+        // declare a stack
+        stack<TreeNode *> stk;
+        if (root != nullptr)
+        {
+            stk.push(root);
+        }
+        TreeNode *currentNode;
+        while (!stk.empty())
+        {
+            // get the top node of stack
+            currentNode = stk.top();
+            // pop it out
+            stk.pop();
+            //push it in vector
+            preOrderTraversalSequence.push_back(currentNode->val);
+
+            if (currentNode->right != nullptr)
+            {
+                stk.push(currentNode->right);
+            }
+            if (currentNode->left != nullptr)
+            {
+                stk.push(currentNode->left);
+            }
+        }
         return preOrderTraversalSequence;
     }
 };
